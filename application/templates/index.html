@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>HL7 Extractor</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="content" style="width: 50%;">
+    <h1 style="text-align: center">HL7 Extractor</h1>
+   
+    <div class="form" >
+        <form action="/" method="POST">
+            <textarea type="text" name="content" id="content" style="width: 100%;" rows="15" placeholder="Enter Hl7 message..."></textarea>
+            <div class="">
+                <button onclick="testing()" type="button">Test</button>
+                <input type="submit" value="Add Message">
+            </div>
+        </form>
+    </div>
+
+    
+</div>
+
+<br/>
+
+{% if messages|length < 1 %}
+<h4 style="text-align: center">There are no messages. Create one above!</h4>
+{% else %}
+
+<table>
+    <thead>
+        <tr class="bg-primary text-white"></tr>
+            <th colspan="5">Unparsed Data</th>
+            <th>Added</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for message in messages %}
+        <tr>
+            <td colspan="5" style="word-wrap: break-word">{{ message.content }}</td>
+            <td>{{ message.date_created.date() }}</td>
+            <td class="text-center">
+                <a class="text-dark" href="/result/{{message.id}}"><u>Extract</u></a>
+                <form action="/delete/{{message.id}}" method="POST">
+                    <button class="text-danger" type="submit">Delete</button>
+                </form>
+                <a class="text-primary" href="/update/{{message.id}}"><u>Update</u></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endif %}
+
+
+{% endblock %}

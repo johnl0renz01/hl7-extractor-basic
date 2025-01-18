@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Update Message</title>
+{% endblock %}
+
+{% block body %}
+<div class="content" style="width: 50%;">
+    <h1 style="text-align: center">Update Message</h1>
+   
+    <div class="form" >
+        <form action="/update/{{message.id}}" method="POST">
+            <textarea type="text" name="content" id="content" style="width: 100%;" rows="15" placeholder="Enter Hl7 message...">{{message.content}}</textarea>
+            <div class="">
+                <input type="submit" value="Update">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
